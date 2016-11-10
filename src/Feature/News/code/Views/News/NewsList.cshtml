@@ -1,32 +1,42 @@
 ﻿@using Sitecore.Feature.News
 @using Sitecore.Foundation.SitecoreExtensions.Extensions
-@model IEnumerable<Sitecore.Data.Items.Item>
-<ul class="media-list media-list-divided">
-  @foreach (var item in Model)
-  {
-    <li class="media">
-      <div class="media-left">
-        <a href="@item.Url()">
-          @Html.Sitecore().ImageField(Templates.NewsArticle.Fields.Image, item, mw: 150)
-        </a>
-      </div>
+@using Sitecore.Feature.News.Models
+@using Glass.Mapper.Sc.Fields
+@using Glass.Mapper.Sc.Web.Mvc
+@using System.Data
 
-      <div class="media-body">
-        <div class="label label-info">
-          @Html.Sitecore().Field(Templates.NewsArticle.Fields.Date.ToString(), item, new
-                                                                                     {
-                                                                                       format = "MMMM dd, yyyy"
-                                                                                     })
-        </div>
-        <h3 class="media-title">
-          <a href="@item.Url()">
-            @Html.Sitecore().Field(Templates.NewsArticle.Fields.Title, item)
-          </a>
-        </h3>
-        <p>
-          @Html.Sitecore().Field(Templates.NewsArticle.Fields.Summary, item)
-        </p>
-      </div>
-    </li>
-  }
+@model IEnumerable<INewsArticle>
+<ul class="media-list media-list-divided">
+    @foreach (var item in Model)
+    {
+        <li class="media">
+            <div class="media-left">
+                <a href="@item.Url">
+                    @*@Html.Sitecore().ImageField(Templates.NewsArticle.Fields.Image, item, mw: 150)*@
+                    <img src="@item.NewsImage.Src" width="150" />
+                </a>
+            </div>
+            <div class="media-body">
+                <div class="label label-info">
+                    @item.NewsDate.ToLongDateString()
+                    @Html.Glass().Editable(x => x.NewsDate)
+
+                    @*@Html.Sitecore().Field(Templates.NewsArticle.Fields.Date.ToString(), item, new
+     {
+         format = "MMMM dd, yyyy"
+     })*@
+                </div>
+                <h3 class="media-title">
+                    <a href="@item.Url">
+                        @item.NewsTitle
+                        @*@Html.Sitecore().Field(Templates.NewsArticle.Fields.Title, item)*@
+                    </a>
+                </h3>
+                <p>
+                    @Html.Raw(@item.NewsSummary)
+                    @*@Html.Sitecore().Field(Templates.NewsArticle.Fields.Summary, item)*@
+                </p>
+            </div>
+        </li>
+    }
 </ul>

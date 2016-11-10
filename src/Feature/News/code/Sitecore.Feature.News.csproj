@@ -157,6 +157,7 @@
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="Indexing\NewsIndexingProvider.cs" />
+    <Compile Include="Models\INewsArticle.cs" />
     <Compile Include="Repositories\INewsRepository.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Repositories\INewsRepositoryFactory.cs" />
