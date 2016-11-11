@@ -1,11 +1,11 @@
 ﻿namespace Sitecore.Feature.News.Repositories
 {
-  using System.Collections.Generic;
-  using Sitecore.Data.Items;
+    using System.Collections.Generic;
+    using Models;
 
-  public interface INewsRepository
-  {
-    IEnumerable<Item> Get();
-    IEnumerable<Item> GetLatestNews(int count);
-  }
+    public interface INewsRepository
+    {
+        IEnumerable<INewsArticle> Get();
+        IEnumerable<INewsArticle> GetLatestNews(int count);
+    }
 }

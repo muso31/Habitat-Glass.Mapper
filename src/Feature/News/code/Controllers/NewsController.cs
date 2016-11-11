@@ -26,16 +26,24 @@
             //var items = this.newsRepositoryFactory.Create(RenderingContext.Current.Rendering.Item).Get();
             //return this.View("NewsList", items);
 
+            //var model = context.QueryRelative<INewsArticle>(".//*[@@templatename='News Article']");
+
+
             ISitecoreContext context = new SitecoreContext();
-            var model = context.QueryRelative<INewsArticle>(".//*[@@templatename='News Article']");
+
+            var model = this.newsRepositoryFactory.Create(context).Get();
+
             return View("NewsList", model);
         }
 
         public ActionResult LatestNews()
         {
+            ISitecoreContext context = new SitecoreContext();
+
             //TODO: change to parameter template
-            var count = RenderingContext.Current.Rendering.GetIntegerParameter("count", 5);
-            var items = this.newsRepositoryFactory.Create(RenderingContext.Current.Rendering.Item).GetLatestNews(count);
+            //var count = RenderingContext.Current.Rendering.GetIntegerParameter("count", 5);
+            var count = 5;
+            var items = this.newsRepositoryFactory.Create(context).GetLatestNews(count);
             return this.View("LatestNews", items);
         }
     }

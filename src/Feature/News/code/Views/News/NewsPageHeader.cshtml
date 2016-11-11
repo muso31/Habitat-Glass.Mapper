@@ -1,30 +1,29 @@
-﻿@using Sitecore.Feature.News
-@using Sitecore.Foundation.Alerts
-@using Sitecore.Foundation.Alerts.Extensions
-@using Sitecore.Foundation.SitecoreExtensions.Extensions
-@model Sitecore.Mvc.Presentation.RenderingModel
-@if (!Model?.Item?.IsDerived(Templates.NewsArticle.ID) ?? true)
-{
-  @Html.PageEditorError(AlertTexts.InvalidDataSourceTemplate(Templates.NewsArticle.ID), AlertTexts.InvalidDataSourceTemplateFriendlyMessage, Model.Item?.ID, Model.Rendering.Item?.ID)
-  return;
-}
+﻿@using Sitecore.Feature.News.Models
+@using Glass.Mapper.Sc.Web.Mvc
+
+@*@model Sitecore.Mvc.Presentation.RenderingModel*@
+@*@if (!Model?.Item?.IsDerived(Templates.NewsArticle.ID) ?? true)
+    {
+      @Html.PageEditorError(AlertTexts.InvalidDataSourceTemplate(Templates.NewsArticle.ID), AlertTexts.InvalidDataSourceTemplateFriendlyMessage, Model.Item?.ID, Model.Rendering.Item?.ID)
+      return;
+    }*@
+@model INewsArticle
 
 <div class="container">
-  <div class="label label-info">
-    <time>
-      @Html.Sitecore().Field(Templates.NewsArticle.Fields.Date.ToString(), new
-                                                                           {
-                                                                             format = "MMMM dd, yyyy"
-                                                                           })</time>
-  </div>
-  <h1>
-    @Html.Sitecore().Field(Templates.NewsArticle.Fields.Title, Model.Item)
-    @if (Model.Item.FieldHasValue(Templates.NewsArticle.Fields.Summary) || Sitecore.Context.PageMode.IsExperienceEditor)
-    {
-      <br/>
-      <small>
-        @Html.Sitecore().Field(Templates.NewsArticle.Fields.Summary, Model.Item)
-      </small>
-    }
-  </h1>
+    <div class="label label-info">
+        <time>
+            @Html.Glass().Editable(x => x.NewsDate, x => x.NewsDate.ToString("MMMM dd,yyyy"))
+        </time>
+    </div>
+    <h1>
+
+        @Html.Glass().Editable(x => x.NewsTitle)
+        @if (!string.IsNullOrEmpty(Model.NewsSummary) || Html.Glass().IsInEditingMode)
+        {
+            <br />
+            <small>
+                @Html.Glass().Editable(x => x.NewsSummary)
+            </small>
+        }
+    </h1>
 </div>
