@@ -23,11 +23,11 @@
 
         public ActionResult NewsList()
         {
+            //var items = this.newsRepositoryFactory.Create(RenderingContext.Current.Rendering.Item).Get();
+            //return this.View("NewsList", items);
+
             ISitecoreContext context = new SitecoreContext();
-            //var repo = newsRepositoryFactory.Create(RenderingContext.Current.ContextItem);
-
             var model = context.QueryRelative<INewsArticle>(".//*[@@templatename='News Article']");
-
             return View("NewsList", model);
         }
 

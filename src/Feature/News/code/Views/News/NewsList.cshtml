@@ -1,42 +1,33 @@
-﻿@using Sitecore.Feature.News
-@using Sitecore.Foundation.SitecoreExtensions.Extensions
-@using Sitecore.Feature.News.Models
-@using Glass.Mapper.Sc.Fields
+﻿@using Sitecore.Feature.News.Models
 @using Glass.Mapper.Sc.Web.Mvc
-@using System.Data
+
 
 @model IEnumerable<INewsArticle>
 <ul class="media-list media-list-divided">
     @foreach (var item in Model)
     {
+        using (@Html.Glass().BeginEditFrame(item, "News Article", x => x.NewsImage, x => x.NewsDate, x => x.NewsTitle, x => x.NewsSummary))
+        {
         <li class="media">
             <div class="media-left">
                 <a href="@item.Url">
-                    @*@Html.Sitecore().ImageField(Templates.NewsArticle.Fields.Image, item, mw: 150)*@
-                    <img src="@item.NewsImage.Src" width="150" />
+                    @Html.Glass().Editable(item, x => x.NewsImage, new { Width = 150 })
                 </a>
             </div>
             <div class="media-body">
                 <div class="label label-info">
-                    @item.NewsDate.ToLongDateString()
-                    @Html.Glass().Editable(x => x.NewsDate)
-
-                    @*@Html.Sitecore().Field(Templates.NewsArticle.Fields.Date.ToString(), item, new
-     {
-         format = "MMMM dd, yyyy"
-     })*@
+                    @Html.Glass().Editable(item, x => x.NewsDate, x => x.NewsDate.ToString("MMMM dd,yyyy"))
                 </div>
                 <h3 class="media-title">
                     <a href="@item.Url">
-                        @item.NewsTitle
-                        @*@Html.Sitecore().Field(Templates.NewsArticle.Fields.Title, item)*@
+                        @Html.Glass().Editable(item, x => x.NewsTitle)
                     </a>
                 </h3>
                 <p>
-                    @Html.Raw(@item.NewsSummary)
-                    @*@Html.Sitecore().Field(Templates.NewsArticle.Fields.Summary, item)*@
+                    @Html.Glass().Editable(item, x => x.NewsSummary)
                 </p>
             </div>
         </li>
+        }
     }
 </ul>
