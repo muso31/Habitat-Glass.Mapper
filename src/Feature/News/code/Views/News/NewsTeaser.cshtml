@@ -8,8 +8,6 @@
 @using Sitecore.Feature.News.Models
 @using Glass.Mapper.Sc.Web.Mvc
 
-@*@model Sitecore.Mvc.Presentation.RenderingModel*@
-
     @model INewsArticle
 @*@if (!Model?.Item?.IsDerived(Templates.NewsArticle.ID) ?? true)
 {
@@ -28,13 +26,11 @@
   </header>
   <div>
     <a href="@Model.Url">
-      @*@Html.Sitecore().ImageField(Templates.NewsArticle.Fields.Image, Model.Item, mw: 750, cssClass: "img-responsive")*@
-        @Html.Glass().Editable(x => x.NewsImage, new { Width = 750 })
+        @Html.Glass().Editable(x => x.NewsImage, new { Width = 750, cssClass = "img-responsive" })
     </a>
   </div>
   <div class="caption">
     <p>
-      @*@Html.Sitecore().Field(Templates.NewsArticle.Fields.Summary)*@
         @Html.Glass().Editable(x => x.NewsSummary)
     </p>
     <a href="@Html.Sitecore().CurrentRendering.Item.Url()" class="btn btn-default">

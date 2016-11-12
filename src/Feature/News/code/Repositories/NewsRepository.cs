@@ -40,8 +40,8 @@
             //  var results = searchService.FindAll();
             //  return results.Results.Select(x => x.Item).Where(x => x != null).OrderByDescending(i => i[Templates.NewsArticle.Fields.Date]);
 
-            return ContextItem.QueryRelative<INewsArticle>(".//*[@@templatename='News Article']").Where(x => x != null).OrderByDescending(i => i.NewsDate);
-
+            //return ContextItem.QueryRelative<INewsArticle>(".//*[@@templateid='" + Templates.NewsArticle.PageTemplateID + "']").Where(x => x != null).OrderByDescending(i => i.NewsDate);
+            return ContextItem.Query<INewsArticle>("/sitecore/content/Habitat/Home/Modules/Feature/News/News//*[@@templateid='" + Templates.NewsArticle.PageTemplateID + "']").Where(x => x != null).OrderByDescending(i => i.NewsDate);
         }
 
         public IEnumerable<INewsArticle> GetLatestNews(int count)

@@ -6,15 +6,8 @@
 @using Sitecore.Feature.News.Models
 @using Glass.Mapper.Sc.Web.Mvc
 
-@{
-
-//TODO:
-//Fix div class well
-//a href at button of page
-}
-
 @model IEnumerable<INewsArticle>
-<div class="well @*@RenderingContext.Current.Rendering.GetBackgroundClass()*@">
+<div class="well @RenderingContext.Current.Rendering.GetBackgroundClass()">
   <h5 class="text-uppercase">@Html.Sitecore().Dictionary("/news/latest news/title", "News")</h5>
   <ul class="media-list">
     @foreach (var item in Model)
@@ -31,7 +24,7 @@
       </li>
     }
   </ul>
-  <a href="@*@Html.Sitecore().CurrentRendering.Item.Url()*@" class="btn btn-default">
+  <a href="@Html.Sitecore().CurrentRendering.Item.Url()" class="btn btn-default">
     @Html.Sitecore().Dictionary("/news/latest news/read more", "Read more")
   </a>
 </div>

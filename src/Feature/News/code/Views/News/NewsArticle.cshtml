@@ -1,8 +1,9 @@
-﻿@using Sitecore.Feature.News
-@using Sitecore.Foundation.Alerts
-@using Sitecore.Foundation.Alerts.Extensions
-@using Sitecore.Foundation.SitecoreExtensions.Extensions
-@model Sitecore.Mvc.Presentation.RenderingModel
+﻿@using Sitecore.Feature.News.Models
+@using Glass.Mapper.Sc.Web.Mvc
+
+
+@model INewsArticle
+
 @*@if (!Model?.Item?.IsDerived(Templates.NewsArticle.ID) ?? true)
 {
   @Html.PageEditorError(AlertTexts.InvalidDataSourceTemplate(Templates.NewsArticle.ID), AlertTexts.InvalidDataSourceTemplateFriendlyMessage, Model.Item?.ID, Model.Rendering.Item?.ID)
@@ -10,5 +11,5 @@
 }*@
 
 <div>
-  @Html.Sitecore().Field(Templates.NewsArticle.Fields.Body, Model.Item)
+    @Html.Glass().Editable(x => x.NewsBody)
 </div>

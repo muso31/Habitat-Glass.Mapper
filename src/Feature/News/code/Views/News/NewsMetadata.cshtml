@@ -1,15 +1,14 @@
-﻿@using Sitecore.Feature.News
-@using Sitecore.Foundation.Alerts
-@using Sitecore.Foundation.Alerts.Extensions
-@using Sitecore.Foundation.SitecoreExtensions.Extensions
-@model Sitecore.Mvc.Presentation.RenderingModel
+﻿@using Sitecore.Feature.News.Models
+@using Glass.Mapper.Sc.Web.Mvc
 
-@if (!Model?.Item?.IsDerived(Templates.NewsArticle.ID) ?? true)
+@model INewsArticle
+
+@*@if (!Model?.Item?.IsDerived(Templates.NewsArticle.ID) ?? true)
 {
   @Html.PageEditorError(AlertTexts.InvalidDataSourceTemplate(Templates.NewsArticle.ID), AlertTexts.InvalidDataSourceTemplateFriendlyMessage, Model.Item?.ID, Model.Rendering.Item?.ID)
   return;
-}
+}*@
 
 <div class="thumbnail m-b-1">
-  @Html.Sitecore().ImageField(Templates.NewsArticle.Fields.Image, Model.Item, mw: 500)
+    @Html.Glass().Editable(x => x.NewsImage, new { Width = 500, cssClass = "img-responsive" })
 </div>
