@@ -1,21 +1,21 @@
-﻿@using Sitecore.Feature.News
-@using Sitecore.Foundation.Alerts
-@using Sitecore.Foundation.Alerts.Extensions
-@using Sitecore.Foundation.Dictionary.Extensions
+﻿@using Sitecore.Foundation.Dictionary.Extensions
 @using Sitecore.Foundation.SitecoreExtensions.Extensions
 @using Sitecore.Foundation.SitecoreExtensions.Repositories
 @using Sitecore.Foundation.Theming.Extensions
 @using Sitecore.Feature.News.Models
 @using Glass.Mapper.Sc.Web.Mvc
+@using Sitecore.Mvc.Presentation
 
     @model INewsArticle
+
+
 @*@if (!Model?.Item?.IsDerived(Templates.NewsArticle.ID) ?? true)
 {
   @Html.PageEditorError(AlertTexts.InvalidDataSourceTemplate(Templates.NewsArticle.ID), AlertTexts.InvalidDataSourceTemplateFriendlyMessage, Model.Item?.ID, Model.Rendering.Item?.ID)
   return;
 }*@
 
-<div class="thumbnail @*@Model.Rendering.GetBackgroundClass()*@ m-b-1">
+<div class="thumbnail @RenderingContext.Current.Rendering.GetBackgroundClass() m-b-1">
   <header class="thumbnail-header">
     <span class="label">
         @Html.Glass().Editable(x => x.NewsDate, x => x.NewsDate.ToString("MMMM dd,yyyy"))
