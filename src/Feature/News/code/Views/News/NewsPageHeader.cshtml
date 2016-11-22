@@ -1,29 +1,36 @@
 ﻿@using Sitecore.Feature.News.Models
 @using Glass.Mapper.Sc.Web.Mvc
+@using Sitecore.Data
+@using Sitecore.Feature.News
+@using Sitecore.Foundation.Alerts
+@using Sitecore.Foundation.Alerts.Extensions
 
 @*@model Sitecore.Mvc.Presentation.RenderingModel*@
-@*@if (!Model?.Item?.IsDerived(Templates.NewsArticle.ID) ?? true)
-    {
-      @Html.PageEditorError(AlertTexts.InvalidDataSourceTemplate(Templates.NewsArticle.ID), AlertTexts.InvalidDataSourceTemplateFriendlyMessage, Model.Item?.ID, Model.Rendering.Item?.ID)
-      return;
-    }*@
+
 @model INewsArticle
 
-<div class="container">
-    <div class="label label-info">
-        <time>
-            @Html.Glass().Editable(x => x.NewsDate, x => x.NewsDate.ToString("MMMM dd,yyyy"))
-        </time>
-    </div>
-    <h1>
+@if (Model == null)
+{
+    @Html.PageEditorError(AlertTexts.InvalidDataSourceTemplate(Templates.NewsArticle.ID), AlertTexts.InvalidDataSourceTemplateFriendlyMessage, ID.Null, ID.Null)
+}
+else
+{
+    <div class="container">
+        <div class="label label-info">
+            <time>
+                @Html.Glass().Editable(x => x.NewsDate, x => x.NewsDate.ToString("MMMM dd,yyyy"))
+            </time>
+        </div>
+        <h1>
 
-        @Html.Glass().Editable(x => x.NewsTitle)
-        @if (!string.IsNullOrEmpty(Model.NewsSummary) || Html.Glass().IsInEditingMode)
-        {
-            <br />
-            <small>
-                @Html.Glass().Editable(x => x.NewsSummary)
-            </small>
-        }
-    </h1>
-</div>
+            @Html.Glass().Editable(x => x.NewsTitle)
+            @if (!string.IsNullOrEmpty(Model.NewsSummary) || Html.Glass().IsInEditingMode)
+            {
+                <br/>
+                <small>
+                    @Html.Glass().Editable(x => x.NewsSummary)
+                </small>
+            }
+        </h1>
+    </div>
+}
