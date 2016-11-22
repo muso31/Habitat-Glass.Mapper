@@ -23,20 +23,18 @@
 
         public ActionResult NewsList()
         {
-            ISitecoreContext context = new SitecoreContext();
-
-            var model = this.newsRepositoryFactory.Create(context).Get();
-
+            var folder = this.GetLayoutItem<INewsFolder>();
+            var model = this.newsRepositoryFactory.Create(folder).Get();
             return View("NewsList", model);
         }
 
         public ActionResult LatestNews()
         {
-            ISitecoreContext context = new SitecoreContext();
+            var folder = this.GetLayoutItem<INewsFolder>();
 
             //TODO: change to parameter template
             var count = RenderingContext.Current.Rendering.GetIntegerParameter("count", 5);
-            var items = this.newsRepositoryFactory.Create(context).GetLatestNews(count);
+            var items = this.newsRepositoryFactory.Create(folder).GetLatestNews(count);
             return this.View("LatestNews", items);
         }
     }
