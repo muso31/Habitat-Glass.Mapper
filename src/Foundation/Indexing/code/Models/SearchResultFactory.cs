@@ -12,7 +12,7 @@ namespace Sitecore.Foundation.Indexing.Models
     public static ISearchResult Create(SearchResultItem result)
     {
       var item = result.GetItem();
-      var formattedResult = new SearchResult(item);
+      var formattedResult = new SearchResult(result.Uri);
       FormatResultUsingFirstSupportedProvider(result, item, formattedResult);
       return formattedResult;
     }

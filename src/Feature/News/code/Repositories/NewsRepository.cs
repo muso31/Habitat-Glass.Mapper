@@ -3,45 +3,44 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Sitecore.Foundation.Indexing.Models;
     using Sitecore.Foundation.Indexing.Repositories;
     using Glass.Mapper.Sc;
     using Models;
 
     public class NewsRepository : INewsRepository
     {
-        public ISitecoreContext ContextItem { get; set; }
-
-        private readonly ISearchServiceRepository searchServiceRepository;
-
-        public NewsRepository(ISitecoreContext contextItem) : this(contextItem, new SearchServiceRepository(new SearchSettingsBase { Templates = new[] { Templates.NewsArticle.ID } }))
+        private readonly ISitecoreContext _context;
+        private readonly ISearchServiceRepository _searchServiceRepository;
+        private readonly INewsFolder _folder;
+        
+        public NewsRepository(ISitecoreContext context, ISearchServiceRepository searchServiceRepository, INewsFolder folder)
         {
-        }
-
-        public NewsRepository(ISitecoreContext contextItem, ISearchServiceRepository searchServiceRepository)
-        {
-            if (contextItem == null)
+            if (folder == null)
             {
-                throw new ArgumentNullException(nameof(contextItem));
+                throw new ArgumentNullException(nameof(folder));
             }
-            //if (!contextItem.IsDerived(Templates.NewsFolder.ID))
-            //{
-            //  throw new ArgumentException("Item must derive from NewsFolder", nameof(contextItem));
-            //}
-            this.ContextItem = contextItem;
-            this.searchServiceRepository = searchServiceRepository;
+            
+            this._context = context;
+            this._searchServiceRepository = searchServiceRepository;
+            this._folder = folder;
         }
+        
 
         public IEnumerable<INewsArticle> Get()
         {
-            //  var searchService = this.searchServiceRepository.Get();
-            //  searchService.Settings.Root = this.ContextItem;
-            //  //TODO: Refactor for scalability
-            //  var results = searchService.FindAll();
-            //  return results.Results.Select(x => x.Item).Where(x => x != null).OrderByDescending(i => i[Templates.NewsArticle.Fields.Date]);
+            var searchService = this._searchServiceRepository.Get();
+            //TODO: Need to refactor so that the search service feature provides an interface that requires the self propety.
+            searchService.Settings.Root = this._folder.Self;
 
-            //return ContextItem.QueryRelative<INewsArticle>(".//*[@@templateid='" + Templates.NewsArticle.PageTemplateID + "']").Where(x => x != null).OrderByDescending(i => i.NewsDate);
-            return ContextItem.Query<INewsArticle>("/sitecore/content/Habitat/Home/Modules/Feature/News/News//*[@@templateid='" + Templates.NewsArticle.PageTemplateID + "']").Where(x => x != null).OrderByDescending(i => i.NewsDate);
+            var results = searchService.FindAll();
+            
+            //TODO: This is not good, the results are greedy. Ordering needs to be passed to the search service 
+            //so we can optimise the data retrieval 
+            return results.Results.Select(x => 
+                this._context
+                    .GetItem<INewsArticle>(x.ItemUri.ItemID.Guid, x.ItemUri.Language, x.ItemUri.Version))
+                    .Where(x => x != null)
+                    .OrderByDescending(x=>x.NewsDate);
         }
 
         public IEnumerable<INewsArticle> GetLatestNews(int count)

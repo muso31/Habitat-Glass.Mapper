@@ -7,8 +7,6 @@
 
         public struct NewsArticle
         {
-            public const string TemplateID = "{2F75C8AF-35FC-4A88-B585-7595203F442C}";
-
             public const string PageTemplateID = "{B69277AD-E917-4B9F-9136-A12E0A3E462F}";
 
             public static readonly ID ID = new ID("{2F75C8AF-35FC-4A88-B585-7595203F442C}");
@@ -33,6 +31,7 @@
 
         public struct NewsFolder
         {
+
             public static readonly ID ID = new ID("{74889B26-061C-4D6A-8CDB-422665FC34EC}");
         }
     }

@@ -1,9 +1,9 @@
 ﻿namespace Sitecore.Feature.News.Repositories
 {
-    using Glass.Mapper.Sc;
+    using Sitecore.Feature.News.Models;
 
     public interface INewsRepositoryFactory
     {
-        INewsRepository Create(ISitecoreContext contextItem);
+        INewsRepository Create(INewsFolder folder);
     }
 }

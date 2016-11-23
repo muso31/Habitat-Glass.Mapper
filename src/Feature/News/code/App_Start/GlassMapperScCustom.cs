@@ -7,6 +7,8 @@ using IDependencyResolver = Glass.Mapper.Sc.IoC.IDependencyResolver;
 
 namespace Sitecore.Feature.News.App_Start
 {
+    using Sitecore.Feature.News.Loader;
+
     public static  class GlassMapperScCustom
     {
 		public static IDependencyResolver CreateResolver(){
@@ -47,8 +49,8 @@ namespace Sitecore.Feature.News.App_Start
 		}
 		public static void AddMaps(IConfigFactory<IGlassMap> mapsConfigFactory)
         {
-			// Add maps here
-            // mapsConfigFactory.Add(() => new SeoMap());
+            mapsConfigFactory.Add(()=> new NewsArticleMap());
+            mapsConfigFactory.Add(()=> new NewsFolderMap());
         }
     }
 }
