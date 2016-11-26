@@ -1,6 +1,4 @@
-﻿using Glass.Mapper.Sc.Configuration;
-using Glass.Mapper.Sc.Configuration.Attributes;
-using Glass.Mapper.Sc.Fields;
+﻿using Glass.Mapper.Sc.Fields;
 using System;
 
 namespace Sitecore.Feature.News.Models

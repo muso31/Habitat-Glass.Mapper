@@ -19,7 +19,7 @@
                   SitecoreContextFactory.Default.GetSitecoreContext(), 
                   new SearchServiceRepository(new SearchSettingsBase {Templates = new[] {Templates.NewsArticle.ID}}))
         {
-            
+
         }
         public NewsRepositoryFactory(ISitecoreContext context, ISearchServiceRepository repository)
         {
@@ -39,6 +39,6 @@
             }
         }
 
-       
+
     }
 }

@@ -1,7 +1,5 @@
 ﻿@using Sitecore.Foundation.Dictionary.Extensions
 @using Sitecore.Foundation.SitecoreExtensions.Extensions
-@using Sitecore.Foundation.SitecoreExtensions.Repositories
-@using Sitecore.Foundation.Theming.Extensions
 @using Sitecore.Feature.News.Models
 @using Glass.Mapper.Sc.Web.Mvc
 @using Sitecore.Data
@@ -9,6 +7,7 @@
 @using Sitecore.Foundation.Alerts
 @using Sitecore.Foundation.Alerts.Extensions
 @using Sitecore.Mvc.Presentation
+@using Sitecore.Foundation.Theming.Extensions
 
     @model INewsArticle
 
@@ -20,7 +19,7 @@
 }
 else
 {
-    <div class="thumbnail @RenderingContext.Current.Rendering.GetBackgroundClass() m-b-1">
+    <div class="thumbnail @RenderingContext.Current.Rendering.GetBackgroundClass(); m-b-1">
         <header class="thumbnail-header">
             <span class="label">
         @Html.Glass().Editable(x => x.NewsDate, x => x.NewsDate.ToString("MMMM dd,yyyy"))

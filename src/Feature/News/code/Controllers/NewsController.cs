@@ -6,7 +6,6 @@
     using Sitecore.Mvc.Presentation;
     using Models;
     using Glass.Mapper.Sc.Web.Mvc;
-    using Glass.Mapper.Sc;
 
     public class NewsController : GlassController
     {

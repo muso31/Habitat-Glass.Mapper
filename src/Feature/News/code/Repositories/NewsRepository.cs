@@ -19,12 +19,11 @@
             {
                 throw new ArgumentNullException(nameof(folder));
             }
-            
+
             this._context = context;
             this._searchServiceRepository = searchServiceRepository;
             this._folder = folder;
         }
-        
 
         public IEnumerable<INewsArticle> Get()
         {
@@ -33,7 +32,7 @@
             searchService.Settings.Root = this._folder.Self;
 
             var results = searchService.FindAll();
-            
+
             //TODO: This is not good, the results are greedy. Ordering needs to be passed to the search service 
             //so we can optimise the data retrieval 
             return results.Results.Select(x => 

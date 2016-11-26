@@ -26,7 +26,7 @@
         public override void Configure()
         {
             this.Map(
-                x => x.TemplateId(Templates.NewsArticle.ID)
+                x => x.TemplateId(Templates.NewsFolder.ID)
                     .EnforceTemplateAndBase(),
                 x=> x.Item(y=>y.Self)
                 );
